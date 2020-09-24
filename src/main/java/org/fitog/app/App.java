@@ -56,10 +56,33 @@ public class App {
             linesToBePrinted.add(originalLines.get(i));
         }
 
+        // split into slides
+        List<List<String>> slides = new ArrayList<>();
+        slides.add(new ArrayList<String>());
+
         for (int i = 0; i < linesToBePrinted.size(); i++) {
-            String lineToBePrinted = linesToBePrinted.get(i);
-            String newRepliquePointer = isNewReplique(lineToBePrinted) ? "---> " : "";
-            System.out.println(i + "\t" + newRepliquePointer + lineToBePrinted);
+            slides.get(slides.size() - 1).add(linesToBePrinted.get(i));
+            if (slides.get(slides.size() - 1).size() < 4) {
+                continue;
+            }
+            if (i < linesToBePrinted.size() - 1 && isNewReplique(linesToBePrinted.get(i + 1))) {
+                slides.add(new ArrayList<String>());
+            }
+            if (slides.get(slides.size() - 1).size() > 8) {
+                slides.add(new ArrayList<String>());
+            }
+        }
+
+        for (int i = 0; i < slides.size(); i++) {
+            System.out.println("_____________________________");
+            for (String line : slides.get(i)) {
+                System.out.println(line);
+            }
+            System.out.println("_____________________________");
+//
+//            String lineToBePrinted = linesToBePrinted.get(i);
+//            String newRepliquePointer = isNewReplique(lineToBePrinted) ? "---> " : "";
+//            System.out.println(i + "\t" + newRepliquePointer + lineToBePrinted);
         }
     }
 
