@@ -62,7 +62,7 @@ public class App {
 
         for (int i = 0; i < linesToBePrinted.size(); i++) {
             slides.get(slides.size() - 1).add(linesToBePrinted.get(i));
-            if (slides.get(slides.size() - 1).size() < 4) {
+            if (slides.get(slides.size() - 1).size() < 5) {
                 continue;
             }
             if (i < linesToBePrinted.size() - 1 && isNewReplique(linesToBePrinted.get(i + 1))) {
@@ -73,17 +73,15 @@ public class App {
             }
         }
 
+        // visualize result
         for (int i = 0; i < slides.size(); i++) {
             System.out.println("_____________________________");
             for (String line : slides.get(i)) {
                 System.out.println(line);
             }
             System.out.println("_____________________________");
-//
-//            String lineToBePrinted = linesToBePrinted.get(i);
-//            String newRepliquePointer = isNewReplique(lineToBePrinted) ? "---> " : "";
-//            System.out.println(i + "\t" + newRepliquePointer + lineToBePrinted);
         }
+        System.out.println("Number of slides: " + slides.size());
     }
 
     private static boolean isNewReplique(String line) {
