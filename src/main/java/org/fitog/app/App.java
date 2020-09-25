@@ -4,18 +4,34 @@ import org.apache.pdfbox.io.RandomAccessBufferedFileInputStream;
 import org.apache.pdfbox.pdfparser.PDFParser;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.text.PDFTextStripper;
+import org.apache.poi.xslf.usermodel.SlideLayout;
+import org.apache.poi.xslf.usermodel.XMLSlideShow;
+import org.apache.poi.xslf.usermodel.XSLFSlide;
+import org.apache.poi.xslf.usermodel.XSLFSlideLayout;
+import org.apache.poi.xslf.usermodel.XSLFSlideMaster;
+import org.apache.poi.xslf.usermodel.XSLFTextBox;
+import org.apache.poi.xslf.usermodel.XSLFTextParagraph;
+import org.apache.poi.xslf.usermodel.XSLFTextRun;
+import org.apache.poi.xslf.usermodel.XSLFTextShape;
 
+import java.awt.*;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 /**
  * Hello world!
  *
  */
 public class App {
-    public static void main( String[] args ) {
+    public static void main( String[] args ) throws IOException {
 
         // extract text from pdf
         PDFParser parser;
@@ -57,31 +73,58 @@ public class App {
         }
 
         // split into slides
-        List<List<String>> slides = new ArrayList<>();
-        slides.add(new ArrayList<String>());
+        List<List<String>> slidesDTO = new ArrayList<>();
+        slidesDTO.add(new ArrayList<String>());
 
         for (int i = 0; i < linesToBePrinted.size(); i++) {
-            slides.get(slides.size() - 1).add(linesToBePrinted.get(i));
-            if (slides.get(slides.size() - 1).size() < 5) {
+            slidesDTO.get(slidesDTO.size() - 1).add(linesToBePrinted.get(i));
+            if (slidesDTO.get(slidesDTO.size() - 1).size() < 5) {
                 continue;
             }
             if (i < linesToBePrinted.size() - 1 && isNewReplique(linesToBePrinted.get(i + 1))) {
-                slides.add(new ArrayList<String>());
+                slidesDTO.add(new ArrayList<String>());
             }
-            if (slides.get(slides.size() - 1).size() > 8) {
-                slides.add(new ArrayList<String>());
+            if (slidesDTO.get(slidesDTO.size() - 1).size() > 8) {
+                slidesDTO.add(new ArrayList<String>());
             }
+        }
+        List<String> slideTextList = new ArrayList<>();
+        for (List<String> slideLines : slidesDTO) {
+            slideTextList.add(String.join("\n", slideLines));
         }
 
         // visualize result
-        for (int i = 0; i < slides.size(); i++) {
+//        for (int i = 0; i < slidesDTO.size(); i++) {
+//            System.out.println("_____________________________");
+//            for (String line : slidesDTO.get(i)) {
+//                System.out.println(line);
+//            }
+//            System.out.println("_____________________________");
+//        }
+        for (int i = 0; i < slideTextList.size(); i++) {
             System.out.println("_____________________________");
-            for (String line : slides.get(i)) {
-                System.out.println(line);
-            }
+            System.out.println(slideTextList.get(i));
             System.out.println("_____________________________");
         }
-        System.out.println("Number of slides: " + slides.size());
+        System.out.println("Number of slides: " + slidesDTO.size());
+
+        // create ppt
+        XMLSlideShow ppt = new XMLSlideShow();
+        XSLFSlideMaster defaultMaster = ppt.getSlideMasters().get(0);
+        XSLFSlideLayout layout = defaultMaster.getLayout(SlideLayout.TITLE);
+
+        for (String slideText : slideTextList) {
+            XSLFSlide slide = ppt.createSlide(layout);
+
+            // fill in text
+            XSLFTextShape title = slide.getPlaceholder(0);
+            title.setText(slideText);
+        }
+
+        // save ppt
+        FileOutputStream out = new FileOutputStream("God of Carnage Subs.pptx");
+        ppt.write(out);
+        out.close();
     }
 
     private static boolean isNewReplique(String line) {
