@@ -1,3 +1,35 @@
 
-S	java:S106
-"9Replace this use of System.out or System.err by a logger.(½¦ÿÿÿÿÿ
+m
+java:S3776"RRefactor this method to reduce its Cognitive Complexity from 20 to the 15 allowed.(œû¿Ø8Ûœş°Ì.
+X	java:S106"9Replace this use of System.out or System.err by a logger.(Š“‚Øûÿÿÿÿ8Ûœş°Ì.
+J
+java:S2093"*Change this "try" to a try-with-resources.(¡»¢üùÿÿÿÿ8Ûœş°Ì.
+x	java:S135"YReduce the total number of break and continue statements in this loop to use at most one.(•÷£†ÿÿÿÿÿ8Ûœş°Ì.
+X	java:S106"9Replace this use of System.out or System.err by a logger.(Š“‚Øûÿÿÿÿ8˜Ò›¯Ì.
+X	java:S106"9Replace this use of System.out or System.err by a logger.(³¡©«úÿÿÿÿ8ù‚¡¯Ì.
+R
+java:S1128"2Remove this unused import 'java.util.Collections'.(¢³ïÓşÿÿÿÿ8Ûœş°Ì.
+X
+java:S1128"8Remove this unused import 'java.util.stream.Collectors'.(Óóº´úÿÿÿÿ8˜Ò›¯Ì.
+f
+java:S1128"FRemove this unused import 'org.apache.poi.xslf.usermodel.XSLFTextRun'.(Ïÿ“ñıÿÿÿÿ8øÚ„±Ì.
+j
+java:S2095"JUse try-with-resources or close this "XMLSlideShow" in a "finally" clause.(´êÄÖÿÿÿÿÿ8ğ‰±Ì.
+a
+java:S1128"FRemove this unused import 'org.apache.poi.xslf.usermodel.XSLFTextBox'.(š«÷ï8øÚ„±Ì.
+Z
+java:S1128":Remove this unused import 'java.io.FileNotFoundException'.(·î™ùÿÿÿÿ8Ûœş°Ì.
+S	java:S106"9Replace this use of System.out or System.err by a logger.(ºøÙÔ8Ûœş°Ì.
+W
+java:S1128"7Remove this unused import 'java.util.stream.Collector'.(ß‹ÎÓøÿÿÿÿ8Ûœş°Ì.
+l
+java:S1128"LRemove this unused import 'org.apache.poi.xslf.usermodel.XSLFTextParagraph'.(è««Ûúÿÿÿÿ8øÚ„±Ì.
+[
+java:S1075"ARefactor your code to get this URI from a customizable parameter.(®—È18Ûœş°Ì.
+V	java:S125"<This block of commented-out lines of code should be removed.(ü’Éá8Ûœş°Ì.
+y
+java:S2293"YReplace the type specification in this constructor call with the diamond operator ("<>").(ö¦éÏøÿÿÿÿ8‘˜áõÍ.
+y
+java:S2293"YReplace the type specification in this constructor call with the diamond operator ("<>").(ö¦éÏøÿÿÿÿ8‘˜áõÍ.
+y
+java:S2293"YReplace the type specification in this constructor call with the diamond operator ("<>").(ö¦éÏøÿÿÿÿ8‘˜áõÍ.

@@ -4,6 +4,8 @@ import org.apache.pdfbox.io.RandomAccessBufferedFileInputStream;
 import org.apache.pdfbox.pdfparser.PDFParser;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.text.PDFTextStripper;
+import org.apache.poi.sl.usermodel.TextShape;
+import org.apache.poi.sl.usermodel.VerticalAlignment;
 import org.apache.poi.xslf.usermodel.SlideLayout;
 import org.apache.poi.xslf.usermodel.XMLSlideShow;
 import org.apache.poi.xslf.usermodel.XSLFSlide;
@@ -111,14 +113,22 @@ public class App {
         // create ppt
         XMLSlideShow ppt = new XMLSlideShow();
         XSLFSlideMaster defaultMaster = ppt.getSlideMasters().get(0);
-        XSLFSlideLayout layout = defaultMaster.getLayout(SlideLayout.TITLE);
+        XSLFSlideLayout layout = defaultMaster.getLayout(SlideLayout.BLANK);
+        layout.getBackground().setFillColor(Color.BLACK);
 
         for (String slideText : slideTextList) {
             XSLFSlide slide = ppt.createSlide(layout);
 
             // fill in text
-            XSLFTextShape title = slide.getPlaceholder(0);
-            title.setText(slideText);
+            XSLFTextBox textBox = slide.createTextBox();
+            XSLFTextParagraph textParagraph = textBox.getTextParagraphs().get(0);
+            textParagraph.setLineSpacing(170d);
+            XSLFTextRun textRun = textParagraph.getTextRuns().get(0);
+            textRun.setFontColor(Color.WHITE);
+            textRun.setFontSize(24d);
+            textRun.setText(slideText);
+            textBox.setVerticalAlignment(VerticalAlignment.MIDDLE);
+            textBox.setAnchor(new Rectangle(0, 0, 720, 540));
         }
 
         // save ppt
