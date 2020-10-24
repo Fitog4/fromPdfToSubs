@@ -129,7 +129,6 @@ public class App {
         for (int i = 0; i < printableLines.size(); i++) {
             if (printableLines.get(i).length() > CHARS_PER_LINE) {
                 List<String> wordsOfLineToSplit = Arrays.asList(printableLines.remove(i).split(" "));
-//                printableLines.remove(i);
                 List<String> resultingLines = new ArrayList<>();
                 resultingLines.add(wordsOfLineToSplit.get(0));
                 for (int j = 1; j < wordsOfLineToSplit.size(); j++) {
@@ -141,19 +140,6 @@ public class App {
                 }
                 printableLines.addAll(i, resultingLines);
                 i = i + resultingLines.size() - 1;
-//                // use the calculation there to round up
-//                int numResultingLines = (lineToSplit.length() + CHARS_PER_LINE - 1) / CHARS_PER_LINE;
-//                String newPrintableLineToAdd;
-//                for (int j = 0; j < numResultingLines; j++) {
-//                    if (j < numResultingLines - 1) {
-//                        newPrintableLineToAdd = lineToSplit.substring(0, CHARS_PER_LINE);
-//                        lineToSplit = lineToSplit.substring(CHARS_PER_LINE);
-//                    } else {
-//                        newPrintableLineToAdd = lineToSplit;
-//                    }
-//                    printableLines.add(i + j, newPrintableLineToAdd);
-//                }
-//                i = i + numResultingLines - 1;
             }
         }
 
@@ -163,7 +149,7 @@ public class App {
 
         for (int i = 0; i < printableLines.size(); i++) {
             slidesDTO.get(slidesDTO.size() - 1).add(printableLines.get(i));
-            if (slidesDTO.get(slidesDTO.size() - 1).size() < 5) {
+            if (slidesDTO.get(slidesDTO.size() - 1).size() < 6) {
                 continue;
             }
             if (i < printableLines.size() - 1 && isNewReplique(printableLines.get(i + 1))) {
@@ -179,13 +165,6 @@ public class App {
         }
 
         // visualize result
-//        for (int i = 0; i < slidesDTO.size(); i++) {
-//            System.out.println("_____________________________");
-//            for (String line : slidesDTO.get(i)) {
-//                System.out.println(line);
-//            }
-//            System.out.println("_____________________________");
-//        }
         for (int i = 0; i < slideTextList.size(); i++) {
             System.out.println("_____________________________");
             System.out.println(slideTextList.get(i));
@@ -193,35 +172,35 @@ public class App {
         }
         System.out.println("Number of slides: " + slidesDTO.size());
 
-//        // create ppt
-//        XMLSlideShow ppt = new XMLSlideShow();
-//        XSLFSlideMaster defaultMaster = ppt.getSlideMasters().get(0);
-//        XSLFSlideLayout layout = defaultMaster.getLayout(SlideLayout.BLANK);
-//        layout.getBackground().setFillColor(Color.BLACK);
-//
-//        for (String slideText : slideTextList) {
-//            XSLFSlide slide = ppt.createSlide(layout);
-//
-//            // fill in text
-//            XSLFTextBox textBox = slide.createTextBox();
-//            XSLFTextParagraph textParagraph = textBox.getTextParagraphs().get(0);
-//            textParagraph.setLineSpacing(160d);
-//            XSLFTextRun textRun = textParagraph.getTextRuns().get(0);
-//            textRun.setFontColor(Color.WHITE);
-//            textRun.setFontFamily("Courier");
-//            textRun.setFontSize(20d);
-//            textRun.setText(slideText);
-//            textBox.setVerticalAlignment(VerticalAlignment.TOP);
-//            textBox.setAnchor(new Rectangle(0, 0, 720, 540));
-//        }
-//
-//        // save ppt
-//        FileOutputStream out = new FileOutputStream("God of Carnage Subs.pptx");
-//        ppt.write(out);
-//        out.close();
+        // create ppt
+        XMLSlideShow ppt = new XMLSlideShow();
+        XSLFSlideMaster defaultMaster = ppt.getSlideMasters().get(0);
+        XSLFSlideLayout layout = defaultMaster.getLayout(SlideLayout.BLANK);
+        layout.getBackground().setFillColor(Color.BLACK);
+
+        for (String slideText : slideTextList) {
+            XSLFSlide slide = ppt.createSlide(layout);
+
+            // fill in text
+            XSLFTextBox textBox = slide.createTextBox();
+            XSLFTextParagraph textParagraph = textBox.getTextParagraphs().get(0);
+            textParagraph.setLineSpacing(170d);
+            XSLFTextRun textRun = textParagraph.getTextRuns().get(0);
+            textRun.setFontColor(Color.WHITE);
+            textRun.setFontFamily("Courier");
+            textRun.setFontSize(20d);
+            textRun.setText(slideText);
+            textBox.setVerticalAlignment(VerticalAlignment.TOP);
+            textBox.setAnchor(new Rectangle(0, 0, 720, 540));
+        }
+
+        // save ppt
+        FileOutputStream out = new FileOutputStream("God of Carnage Subs.pptx");
+        ppt.write(out);
+        out.close();
     }
 
     private static boolean isNewReplique(String line) {
-        return line.matches("^[A-Z][A-Z][A-Z][A-Z].*");
+        return line.matches("^\\[[A-Z]+\\].*");
     }
 }
