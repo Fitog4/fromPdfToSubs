@@ -111,6 +111,8 @@ public class App {
         parsedText = parsedText.replaceAll("[\\.]+\\.\\.\\.", "...");
         parsedText = parsedText.replaceAll(" [ ]+", " ");
         parsedText = parsedText.replaceAll("\\n\\s*\\n", "\\n");
+        parsedText = parsedText.replaceAll("\u2026", "...");
+        parsedText = parsedText.replaceAll("(\\[MICHEL\\] What do we know\\?).+$", "$1");
 
         // process text
         List<String> characterLines = Arrays.asList(parsedText.split("\n"));
@@ -120,27 +122,38 @@ public class App {
             if (characterLines.get(i).matches("\\s") || characterLines.get(i).matches("^\\[\\d+\\].*")) {
                 continue;
             }
-            printableLines.add(characterLines.get(i));
+            printableLines.add(characterLines.get(i).trim());
         }
 
         // split into lines based on monospaced font courier 58 chars per line
         for (int i = 0; i < printableLines.size(); i++) {
             if (printableLines.get(i).length() > CHARS_PER_LINE) {
-                String lineToSplit = printableLines.get(i);
-                printableLines.remove(i);
-                // use the calculation there to round up
-                int numResultingLines = (lineToSplit.length() + CHARS_PER_LINE - 1) / CHARS_PER_LINE;
-                String newPrintableLineToAdd;
-                for (int j = 0; j < numResultingLines; j++) {
-                    if (j < numResultingLines - 1) {
-                        newPrintableLineToAdd = lineToSplit.substring(0, CHARS_PER_LINE);
-                        lineToSplit = lineToSplit.substring(CHARS_PER_LINE);
+                List<String> wordsOfLineToSplit = Arrays.asList(printableLines.remove(i).split(" "));
+//                printableLines.remove(i);
+                List<String> resultingLines = new ArrayList<>();
+                resultingLines.add(wordsOfLineToSplit.get(0));
+                for (int j = 1; j < wordsOfLineToSplit.size(); j++) {
+                    if (resultingLines.get(resultingLines.size() - 1).length() + wordsOfLineToSplit.get(j).length() < CHARS_PER_LINE) {
+                        resultingLines.set(resultingLines.size() - 1, resultingLines.get(resultingLines.size() - 1) + " " + wordsOfLineToSplit.get(j));
                     } else {
-                        newPrintableLineToAdd = lineToSplit;
+                        resultingLines.add(wordsOfLineToSplit.get(j));
                     }
-                    printableLines.add(i + j, newPrintableLineToAdd);
                 }
-                i = i + numResultingLines - 1;
+                printableLines.addAll(i, resultingLines);
+                i = i + resultingLines.size() - 1;
+//                // use the calculation there to round up
+//                int numResultingLines = (lineToSplit.length() + CHARS_PER_LINE - 1) / CHARS_PER_LINE;
+//                String newPrintableLineToAdd;
+//                for (int j = 0; j < numResultingLines; j++) {
+//                    if (j < numResultingLines - 1) {
+//                        newPrintableLineToAdd = lineToSplit.substring(0, CHARS_PER_LINE);
+//                        lineToSplit = lineToSplit.substring(CHARS_PER_LINE);
+//                    } else {
+//                        newPrintableLineToAdd = lineToSplit;
+//                    }
+//                    printableLines.add(i + j, newPrintableLineToAdd);
+//                }
+//                i = i + numResultingLines - 1;
             }
         }
 
