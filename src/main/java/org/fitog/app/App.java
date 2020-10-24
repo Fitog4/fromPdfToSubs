@@ -33,7 +33,10 @@ import java.util.stream.Collectors;
  *
  */
 public class App {
-    public static void main( String[] args ) throws IOException {
+
+    public static final int CHARS_PER_LINE = 58;
+
+    public static void main(String[] args ) throws IOException {
 
         // extract text from pdf
         PDFParser parser;
@@ -100,33 +103,57 @@ public class App {
 
         parsedText = parsedText.replaceAll("\\[..\\]\\s*", "");
         parsedText = parsedText.replaceAll("1", "I");
-        // cercare di levare tutte le didascalie
+        // remove all remaining didascalies
         parsedText = parsedText.replaceAll("\\([^\\)]+[\\)\\n]", "");
+        // start newline only with new character line
+        parsedText = parsedText.replaceAll("\\n([^\\[])", "$1");
+        parsedText = parsedText.replaceAll("[ ]*\\.[ ]?\\.[ ]?\\.", "...");
+        parsedText = parsedText.replaceAll("[\\.]+\\.\\.\\.", "...");
+        parsedText = parsedText.replaceAll(" [ ]+", " ");
+        parsedText = parsedText.replaceAll("\\n\\s*\\n", "\\n");
 
         // process text
-        List<String> originalLines = Arrays.asList(parsedText.split("\n"));
-        List<String> linesToBePrinted = new ArrayList<>();
+        List<String> characterLines = Arrays.asList(parsedText.split("\n"));
+        List<String> printableLines = new ArrayList<>();
 
-        for (int i = 29; i < originalLines.size(); i++) {
-            if (i > 1661) {
+        for (int i = 1; i < characterLines.size(); i++) {
+            if (characterLines.get(i).matches("\\s") || characterLines.get(i).matches("^\\[\\d+\\].*")) {
                 continue;
             }
-            if (originalLines.get(i).matches("\\s") || originalLines.get(i).matches("^\\[\\d+\\].*")) {
-                     continue;
+            printableLines.add(characterLines.get(i));
+        }
+
+        // split into lines based on monospaced font courier 58 chars per line
+        for (int i = 0; i < printableLines.size(); i++) {
+            if (printableLines.get(i).length() > CHARS_PER_LINE) {
+                String lineToSplit = printableLines.get(i);
+                printableLines.remove(i);
+                // use the calculation there to round up
+                int numResultingLines = (lineToSplit.length() + CHARS_PER_LINE - 1) / CHARS_PER_LINE;
+                String newPrintableLineToAdd;
+                for (int j = 0; j < numResultingLines; j++) {
+                    if (j < numResultingLines - 1) {
+                        newPrintableLineToAdd = lineToSplit.substring(0, CHARS_PER_LINE);
+                        lineToSplit = lineToSplit.substring(CHARS_PER_LINE);
+                    } else {
+                        newPrintableLineToAdd = lineToSplit;
+                    }
+                    printableLines.add(i + j, newPrintableLineToAdd);
+                }
+                i = i + numResultingLines - 1;
             }
-            linesToBePrinted.add(originalLines.get(i));
         }
 
         // split into slides
         List<List<String>> slidesDTO = new ArrayList<>();
         slidesDTO.add(new ArrayList<String>());
 
-        for (int i = 0; i < linesToBePrinted.size(); i++) {
-            slidesDTO.get(slidesDTO.size() - 1).add(linesToBePrinted.get(i));
+        for (int i = 0; i < printableLines.size(); i++) {
+            slidesDTO.get(slidesDTO.size() - 1).add(printableLines.get(i));
             if (slidesDTO.get(slidesDTO.size() - 1).size() < 5) {
                 continue;
             }
-            if (i < linesToBePrinted.size() - 1 && isNewReplique(linesToBePrinted.get(i + 1))) {
+            if (i < printableLines.size() - 1 && isNewReplique(printableLines.get(i + 1))) {
                 slidesDTO.add(new ArrayList<String>());
             }
             if (slidesDTO.get(slidesDTO.size() - 1).size() > 7) {
@@ -153,31 +180,32 @@ public class App {
         }
         System.out.println("Number of slides: " + slidesDTO.size());
 
-        // create ppt
-        XMLSlideShow ppt = new XMLSlideShow();
-        XSLFSlideMaster defaultMaster = ppt.getSlideMasters().get(0);
-        XSLFSlideLayout layout = defaultMaster.getLayout(SlideLayout.BLANK);
-        layout.getBackground().setFillColor(Color.BLACK);
-
-        for (String slideText : slideTextList) {
-            XSLFSlide slide = ppt.createSlide(layout);
-
-            // fill in text
-            XSLFTextBox textBox = slide.createTextBox();
-            XSLFTextParagraph textParagraph = textBox.getTextParagraphs().get(0);
-            textParagraph.setLineSpacing(160d);
-            XSLFTextRun textRun = textParagraph.getTextRuns().get(0);
-            textRun.setFontColor(Color.WHITE);
-            textRun.setFontSize(24d);
-            textRun.setText(slideText);
-            textBox.setVerticalAlignment(VerticalAlignment.TOP);
-            textBox.setAnchor(new Rectangle(0, 0, 720, 540));
-        }
-
-        // save ppt
-        FileOutputStream out = new FileOutputStream("God of Carnage Subs.pptx");
-        ppt.write(out);
-        out.close();
+//        // create ppt
+//        XMLSlideShow ppt = new XMLSlideShow();
+//        XSLFSlideMaster defaultMaster = ppt.getSlideMasters().get(0);
+//        XSLFSlideLayout layout = defaultMaster.getLayout(SlideLayout.BLANK);
+//        layout.getBackground().setFillColor(Color.BLACK);
+//
+//        for (String slideText : slideTextList) {
+//            XSLFSlide slide = ppt.createSlide(layout);
+//
+//            // fill in text
+//            XSLFTextBox textBox = slide.createTextBox();
+//            XSLFTextParagraph textParagraph = textBox.getTextParagraphs().get(0);
+//            textParagraph.setLineSpacing(160d);
+//            XSLFTextRun textRun = textParagraph.getTextRuns().get(0);
+//            textRun.setFontColor(Color.WHITE);
+//            textRun.setFontFamily("Courier");
+//            textRun.setFontSize(20d);
+//            textRun.setText(slideText);
+//            textBox.setVerticalAlignment(VerticalAlignment.TOP);
+//            textBox.setAnchor(new Rectangle(0, 0, 720, 540));
+//        }
+//
+//        // save ppt
+//        FileOutputStream out = new FileOutputStream("God of Carnage Subs.pptx");
+//        ppt.write(out);
+//        out.close();
     }
 
     private static boolean isNewReplique(String line) {
