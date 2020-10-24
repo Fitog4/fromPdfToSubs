@@ -1,35 +1,95 @@
 
-m
-java:S3776"RRefactor this method to reduce its Cognitive Complexity from 20 to the 15 allowed.(œû¿Ø8Ûœş°Ì.
-X	java:S106"9Replace this use of System.out or System.err by a logger.(Š“‚Øûÿÿÿÿ8Ûœş°Ì.
-J
-java:S2093"*Change this "try" to a try-with-resources.(¡»¢üùÿÿÿÿ8Ûœş°Ì.
-x	java:S135"YReduce the total number of break and continue statements in this loop to use at most one.(•÷£†ÿÿÿÿÿ8Ûœş°Ì.
-X	java:S106"9Replace this use of System.out or System.err by a logger.(Š“‚Øûÿÿÿÿ8˜Ò›¯Ì.
-X	java:S106"9Replace this use of System.out or System.err by a logger.(³¡©«úÿÿÿÿ8ù‚¡¯Ì.
-R
-java:S1128"2Remove this unused import 'java.util.Collections'.(¢³ïÓşÿÿÿÿ8Ûœş°Ì.
-X
-java:S1128"8Remove this unused import 'java.util.stream.Collectors'.(Óóº´úÿÿÿÿ8˜Ò›¯Ì.
-f
-java:S1128"FRemove this unused import 'org.apache.poi.xslf.usermodel.XSLFTextRun'.(Ïÿ“ñıÿÿÿÿ8øÚ„±Ì.
+V	java:S106š"9Replace this use of System.out or System.err by a logger.(ºøÙÔ8òŒ¾µÓ.
+e
+java:S5361G"HReplace this call to "replaceAll()" by a call to the "replace()" method.(™Òö 8×Åò²Ó.
+e
+java:S5361R"HReplace this call to "replaceAll()" by a call to the "replace()" method.(éõâÒ8³²­³Ó.
+{
+java:S2293z"YReplace the type specification in this constructor call with the diamond operator ("<>").(ö¦éÏøÿÿÿÿ8òŒ¾µÓ.
 j
-java:S2095"JUse try-with-resources or close this "XMLSlideShow" in a "finally" clause.(´êÄÖÿÿÿÿÿ8ğ‰±Ì.
-a
-java:S1128"FRemove this unused import 'org.apache.poi.xslf.usermodel.XSLFTextBox'.(š«÷ï8øÚ„±Ì.
+java:S5361I"HReplace this call to "replaceAll()" by a call to the "replace()" method.(ÉåÃúÿÿÿÿ8öÀâµÓ.
+e
+java:S5361M"HReplace this call to "replaceAll()" by a call to the "replace()" method.(ìşÆ¡8¹ºş²Ó.
+j
+java:S1128"HRemove this unused import 'org.apache.poi.xslf.usermodel.XSLFTextShape'.(¸ÀÚşÿÿÿÿ8¨¸ñ›Ï.
+e
+java:S5361P"HReplace this call to "replaceAll()" by a call to the "replace()" method.(Ğ·8èü¦³Ó.
+e
+java:S5361Q"HReplace this call to "replaceAll()" by a call to the "replace()" method.(Ğ©ú—8ØÄ§³Ó.
+j
+java:S5361_"HReplace this call to "replaceAll()" by a call to the "replace()" method.(ï–Ãııÿÿÿÿ8ÿª›µÓ.
+^
+java:S1128"BRemove this unused import 'org.apache.poi.sl.usermodel.TextShape'.( ŠÇ}8¨¸ñ›Ï.
+T
+java:S1128"2Remove this unused import 'java.util.Collections'.(¢³ïÓşÿÿÿÿ8Ÿ½ñ™Ñ.
+j
+java:S5361W"HReplace this call to "replaceAll()" by a call to the "replace()" method.(°“³ûÿÿÿÿ8©™ò´Ó.
+e
+java:S5361]"HReplace this call to "replaceAll()" by a call to the "replace()" method.(œïÍ¡8²öŒµÓ.
+j
+java:S5361S"HReplace this call to "replaceAll()" by a call to the "replace()" method.(ŸÖÄÓüÿÿÿÿ8ÖÍ¯³Ó.
+e
+java:S5361f"HReplace this call to "replaceAll()" by a call to the "replace()" method.(¢Òš×8òŒ¾µÓ.
+L
+java:S2093."*Change this "try" to a try-with-resources.(¡»¢üùÿÿÿÿ8Ûœş°Ì.
+|
+java:S2293‚"YReplace the type specification in this constructor call with the diamond operator ("<>").(ö¦éÏøÿÿÿÿ8òŒ¾µÓ.
+\
+java:S1128":Remove this unused import 'java.io.FileNotFoundException'.(·î™ùÿÿÿÿ8Ûœş°Ì.
+e
+java:S5361D"HReplace this call to "replaceAll()" by a call to the "replace()" method.(Ò÷²‰8Ìåî²Ó.
+e
+java:S5361K"HReplace this call to "replaceAll()" by a call to the "replace()" method.(×»è8×Åò²Ó.
+j
+java:S5361C"HReplace this call to "replaceAll()" by a call to the "replace()" method.(ùÉğ³ùÿÿÿÿ8âŸî²Ó.
+j
+java:S5361N"HReplace this call to "replaceAll()" by a call to the "replace()" method.(–ÔÔ©øÿÿÿÿ8êÀ€³Ó.
+[	java:S106—"9Replace this use of System.out or System.err by a logger.(³¡©«úÿÿÿÿ8İÔ˜Ñ.
+j
+java:S5361X"HReplace this call to "replaceAll()" by a call to the "replace()" method.(àé‘Äşÿÿÿÿ8ÿõô´Ó.
+j
+java:S5361H"HReplace this call to "replaceAll()" by a call to the "replace()" method.(Ê¸ÉÃşÿÿÿÿ8×Åò²Ó.
+[	java:S106–"9Replace this use of System.out or System.err by a logger.(Š“‚Øûÿÿÿÿ8Æ ç²Ó.
+j
+java:S5361`"HReplace this call to "replaceAll()" by a call to the "replace()" method.(ÆÜ†¤şÿÿÿÿ8¶èµÓ.
+Y	java:S125"<This block of commented-out lines of code should be removed.(ü’Éá8òŒ¾µÓ.
+j
+java:S5361["HReplace this call to "replaceAll()" by a call to the "replace()" method.(È«ÈÛøÿÿÿÿ8”‚ƒµÓ.
+j
+java:S5361c"HReplace this call to "replaceAll()" by a call to the "replace()" method.(Ç¨ˆ÷ıÿÿÿÿ8ğ¤µÓ.
+o
+java:S3776$"RRefactor this method to reduce its Cognitive Complexity from 20 to the 15 allowed.(œû¿Ø8Ûœş°Ì.
+j
+java:S5361E"HReplace this call to "replaceAll()" by a call to the "replace()" method.(Øœ²ùÿÿÿÿ8×Åò²Ó.
+e
+java:S5361F"HReplace this call to "replaceAll()" by a call to the "replace()" method.(İ¡ƒ8×Åò²Ó.
+Y
+java:S1128"7Remove this unused import 'java.util.stream.Collector'.(ß‹ÎÓøÿÿÿÿ8Ûœş°Ì.
+d
+java:S5361\"HReplace this call to "replaceAll()" by a call to the "replace()" method.(ç­óz8¢ˆµÓ.
+e
+java:S5361L"HReplace this call to "replaceAll()" by a call to the "replace()" method.(ÁˆÃ“8ËØı²Ó.
+e
+java:S5361a"HReplace this call to "replaceAll()" by a call to the "replace()" method.(í¯””8¡ µÓ.
+]
+java:S1075,"ARefactor your code to get this URI from a customizable parameter.(®—È18Ûœş°Ì.
+d
+java:S5361T"HReplace this call to "replaceAll()" by a call to the "replace()" method.(ğÊób8Šª°³Ó.
+e
+java:S5361b"HReplace this call to "replaceAll()" by a call to the "replace()" method.(àšÛ¶8ß†¢µÓ.
+|
+java:S2293…"YReplace the type specification in this constructor call with the diamond operator ("<>").(ö¦éÏøÿÿÿÿ8òŒ¾µÓ.
+[	java:S106˜"9Replace this use of System.out or System.err by a logger.(Š“‚Øûÿÿÿÿ8òŒ¾µÓ.
+z	java:S135n"YReduce the total number of break and continue statements in this loop to use at most one.(•÷£†ÿÿÿÿÿ8òŒ¾µÓ.
+m
+java:S2095"JUse try-with-resources or close this "XMLSlideShow" in a "finally" clause.(´êÄÖÿÿÿÿÿ8òŒ¾µÓ.
+e
+java:S5361Z"HReplace this call to "replaceAll()" by a call to the "replace()" method.(«²ñí8’äú´Ó.
+j
+java:S5361^"HReplace this call to "replaceAll()" by a call to the "replace()" method.(Ä‹ÿ†ùÿÿÿÿ8¨üµÓ.
+e
+java:S5361Y"HReplace this call to "replaceAll()" by a call to the "replace()" method.(¦ÿ«Ç8¤Ó÷´Ó.
+d
+java:S5361U"HReplace this call to "replaceAll()" by a call to the "replace()" method.(ğÊób8¼­´³Ó.
 Z
-java:S1128":Remove this unused import 'java.io.FileNotFoundException'.(·î™ùÿÿÿÿ8Ûœş°Ì.
-S	java:S106"9Replace this use of System.out or System.err by a logger.(ºøÙÔ8Ûœş°Ì.
-W
-java:S1128"7Remove this unused import 'java.util.stream.Collector'.(ß‹ÎÓøÿÿÿÿ8Ûœş°Ì.
-l
-java:S1128"LRemove this unused import 'org.apache.poi.xslf.usermodel.XSLFTextParagraph'.(è««Ûúÿÿÿÿ8øÚ„±Ì.
-[
-java:S1075"ARefactor your code to get this URI from a customizable parameter.(®—È18Ûœş°Ì.
-V	java:S125"<This block of commented-out lines of code should be removed.(ü’Éá8Ûœş°Ì.
-y
-java:S2293"YReplace the type specification in this constructor call with the diamond operator ("<>").(ö¦éÏøÿÿÿÿ8‘˜áõÍ.
-y
-java:S2293"YReplace the type specification in this constructor call with the diamond operator ("<>").(ö¦éÏøÿÿÿÿ8‘˜áõÍ.
-y
-java:S2293"YReplace the type specification in this constructor call with the diamond operator ("<>").(ö¦éÏøÿÿÿÿ8‘˜áõÍ.
+java:S1128"8Remove this unused import 'java.util.stream.Collectors'.(Óóº´úÿÿÿÿ8˜Ò›¯Ì.

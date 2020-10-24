@@ -60,7 +60,50 @@ public class App {
             }
         }
 
-        // cleanup text
+        // cleanup and modify text
+        parsedText = parsedText.replaceAll("\\([.\\n]+\\)", "");
+        parsedText = parsedText.replaceAll("(ALAN|VERONICA|MICHAEL|ANNETTE)\\.\\s+", "\\[$1\\] ");
+
+        parsedText = parsedText.replaceAll("ALAN", "ALAIN");
+        parsedText = parsedText.replaceAll("Alan", "Alain");
+        parsedText = parsedText.replaceAll("MICHAEL", "MICHEL");
+        parsedText = parsedText.replaceAll("Michael", "Michel");
+        parsedText = parsedText.replaceAll("VERONICA", "VERONIQUE");
+        parsedText = parsedText.replaceAll("Veronica", "V\u00E9ronique");
+        parsedText = parsedText.replaceAll("Ronnie", "V\u00E9ro");
+
+        parsedText = parsedText.replaceAll("Raleigh", "Reille");
+        parsedText = parsedText.replaceAll("Novak", "Houill\u00E9");
+        parsedText = parsedText.replaceAll("Benjamin", "Ferdinand");
+        parsedText = parsedText.replaceAll("Henry", "Bruno");
+
+        parsedText = parsedText.replaceAll("Cobble Hill Park", "Aspirant-Dunant Square");
+        parsedText = parsedText.replaceAll("Whitman Park", "Montsouris Park");
+        parsedText = parsedText.replaceAll("Korean deli", "flower shop");
+        parsedText = parsedText.replaceAll("Smith", "Mouton-Duvernet");
+        parsedText = parsedText.replaceAll("today's Times", "today's Les Echos");
+        parsedText = parsedText.replaceAll("today's Times", "today's Les Echos");
+        parsedText = parsedText.replaceAll("([Cc]lafouti)", "$1s");
+        parsedText = parsedText.replaceAll("Chrismastime", "Chrismas time");
+        parsedText = parsedText.replaceAll("Florida", "the Midi region");
+        parsedText = parsedText.replaceAll("F train", "metro");
+        parsedText = parsedText.replaceAll("go traipsing around", "make the effort to come");
+        parsedText = parsedText.replaceAll("Spartacus", "Ivanho\u00E9");
+        parsedText = parsedText.replaceAll("Bobby Kopecki", "Didier Leglu");
+        parsedText = parsedText.replaceAll("Charley's Aunt", "Monsieur de Pourceaugnac");
+        parsedText = parsedText.replaceAll("Secaucus", "Saint-Denis-La-Pleine");
+        parsedText = parsedText.replaceAll("Pepto-Bismol", "Primp\u00E9ran");
+        parsedText = parsedText.replaceAll("BQE", "highway");
+        parsedText = parsedText.replaceAll("New York", "Paris");
+        parsedText = parsedText.replaceAll("peddling", "selling");
+        parsedText = parsedText.replaceAll("coons", "black people");
+
+        parsedText = parsedText.replaceAll("\\[..\\]\\s*", "");
+        parsedText = parsedText.replaceAll("1", "I");
+        // cercare di levare tutte le didascalie
+        parsedText = parsedText.replaceAll("\\([^\\)]+[\\)\\n]", "");
+
+        // process text
         List<String> originalLines = Arrays.asList(parsedText.split("\n"));
         List<String> linesToBePrinted = new ArrayList<>();
 
@@ -69,7 +112,7 @@ public class App {
                 continue;
             }
             if (originalLines.get(i).matches("\\s") || originalLines.get(i).matches("^\\[\\d+\\].*")) {
-                continue;
+                     continue;
             }
             linesToBePrinted.add(originalLines.get(i));
         }
@@ -86,7 +129,7 @@ public class App {
             if (i < linesToBePrinted.size() - 1 && isNewReplique(linesToBePrinted.get(i + 1))) {
                 slidesDTO.add(new ArrayList<String>());
             }
-            if (slidesDTO.get(slidesDTO.size() - 1).size() > 8) {
+            if (slidesDTO.get(slidesDTO.size() - 1).size() > 7) {
                 slidesDTO.add(new ArrayList<String>());
             }
         }
@@ -122,12 +165,12 @@ public class App {
             // fill in text
             XSLFTextBox textBox = slide.createTextBox();
             XSLFTextParagraph textParagraph = textBox.getTextParagraphs().get(0);
-            textParagraph.setLineSpacing(170d);
+            textParagraph.setLineSpacing(160d);
             XSLFTextRun textRun = textParagraph.getTextRuns().get(0);
             textRun.setFontColor(Color.WHITE);
             textRun.setFontSize(24d);
             textRun.setText(slideText);
-            textBox.setVerticalAlignment(VerticalAlignment.MIDDLE);
+            textBox.setVerticalAlignment(VerticalAlignment.TOP);
             textBox.setAnchor(new Rectangle(0, 0, 720, 540));
         }
 
