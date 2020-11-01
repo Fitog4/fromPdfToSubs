@@ -65,6 +65,7 @@ public class App {
 
         // cleanup and modify text
         parsedText = parsedText.replaceAll("\\([.\\n]+\\)", "");
+        parsedText = parsedText.replaceAll("ALAN \\. \\. \\. They just read it to me", "ALAN\\. \\. \\. \\. They just read it to me");
         parsedText = parsedText.replaceAll("(ALAN|VERONICA|MICHAEL|ANNETTE)\\.\\s+", "\\[$1\\] ");
 
         parsedText = parsedText.replaceAll("ALAN", "ALAIN");
@@ -107,12 +108,26 @@ public class App {
         parsedText = parsedText.replaceAll("\\([^\\)]+[\\)\\n]", "");
         // start newline only with new character line
         parsedText = parsedText.replaceAll("\\n([^\\[])", "$1");
-        parsedText = parsedText.replaceAll("[ ]*\\.[ ]?\\.[ ]?\\.", "...");
+        parsedText = parsedText.replaceAll("\\.[ ]?\\.[ ]?\\.", "...");
         parsedText = parsedText.replaceAll("[\\.]+\\.\\.\\.", "...");
         parsedText = parsedText.replaceAll(" [ ]+", " ");
         parsedText = parsedText.replaceAll("\\n\\s*\\n", "\\n");
         parsedText = parsedText.replaceAll("\u2026", "...");
         parsedText = parsedText.replaceAll("(\\[MICHEL\\] What do we know\\?).+$", "$1");
+
+        parsedText = parsedText.replaceAll("(At 5:30 P\\.M\\. on the third of.*the right incisor\\.)", "\"$1\"");
+        parsedText = parsedText.replaceAll("prognosis", "diagnosis");
+        parsedText = parsedText.replaceAll("tattletale", "snitch");
+        parsedText = parsedText.replaceAll("bonanza", "gold mine");
+        parsedText = parsedText.replaceAll("Christmastime", "Christmas time");
+        parsedText = parsedText.replaceAll("Obviously, on purpose.", "Obviously, \"on purpose.\"");
+        parsedText = parsedText.replaceAll("the need to slide in on purpose", "the need to slide in \"on purpose\"");
+        parsedText = parsedText.replaceAll("(The People of the Tundra)", "\"$1\"");
+        parsedText = parsedText.replaceAll("to to humiliate", "to humiliate");
+        parsedText = parsedText.replaceAll("We're living in America", "We're living in France");
+        parsedText = parsedText.replaceAll("shindig", "get-together");
+        parsedText = parsedText.replaceAll("snivelling", "whining");
+        parsedText = parsedText.replaceAll("How much is that doggie in the window", "A song from Paolo Conte which goes wha wha wha");
 
         // process text
         List<String> characterLines = Arrays.asList(parsedText.split("\n"));
@@ -177,6 +192,8 @@ public class App {
         XSLFSlideMaster defaultMaster = ppt.getSlideMasters().get(0);
         XSLFSlideLayout layout = defaultMaster.getLayout(SlideLayout.BLANK);
         layout.getBackground().setFillColor(Color.BLACK);
+        // create black slide before start
+        ppt.createSlide(layout);
 
         for (String slideText : slideTextList) {
             XSLFSlide slide = ppt.createSlide(layout);
